@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title><%= title %></title>
+    <title><%= name %></title>
 </head>
 <body>
 <%- include('partials/header', {
-companyName: companyName,
-companyLogo: companyLogo
+name: name,
+address: address,
+email: email,
+phone: phone,
+logo: logo,
+website: website
 }) %>
 
 <main class="container">
-    <%- include(content) %>
+    <h2 class="mt-4"><%= title %></h2>
+    <%- content %>
 </main>
 
 <%- include('partials/footer', {
-companyAddress: companyAddress
+name: name,
+address: address,
+email: email,
+phone: phone,
+logo: logo,
+website: website
 }) %>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

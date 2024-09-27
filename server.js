@@ -3,7 +3,18 @@
  * Copyright (c) 2024 Asger Jon Vistisen
  */
 
+// FUCK JAVASCRIPT
+
+const path = require('path');
+const kebabToPascal = require('./utils/kebabToPascal')
 const express = require('express');
+const loadBase = require('./middleware/loadBase');
+const loadContent = require('./middleware/loadContent');
+const root = require('app-root-path').path;
+
+const views = path.resolve(root, 'views');
+const layout = path.resolve(views, 'layout.ejs');
+
 const app = express();
 const port = 3000;
 
@@ -11,42 +22,29 @@ const port = 3000;
 app.set('view engine', 'ejs');
 
 // Set the directory where the view templates are stored
-app.set('views', __dirname + '/views');
+console.log(views)
+app.set('views', views);
 
-// Serve static files (CSS, JavaScript, images) from the 'public' directory
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(loadBase);
+app.use(loadContent);
 
-app.use((req, res, next) => {
-  fs.readFile('./data/about-us.txt', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      res.locals.aboutUs = "Error loading About Us content.";
-      return next();
-    }
-    res.locals.aboutUs = data;
-    next();
-  });
-});
 
 app.get('/', (req, res) => {
-  res.render('layout', {
-    title: 'Home Page',
-    companyName: "Example Co.",
-    companyLogo: "/images/logo.png",
-    companyAddress: "123 Example Street, City, Country",
-    content: 'index-content'
-  });
+  res.redirect('/home');
 });
 
 
-app.get('/about', (req, res) => {
-  res.render('layout', {
-    title: 'About Us',
-    companyName: "Example Co.",
-    companyLogo: "/images/logo.png",
-    companyAddress: "123 Example Street, City, Country",
-    content: 'about-content'
-  });
+app.get('/:target', (req, res) => {
+  target = req.params.target;
+  if (!req.content[target.toLowerCase()]) {
+    res.redirect('/home')
+  } else {
+    data = req.baseData;
+    data['title'] = kebabToPascal(target);
+    data['content'] = req.content[target.toLowerCase()];
+    res.render(layout, data);
+  }
 });
 
 // Start the server
