@@ -39,8 +39,8 @@ const loadEnv = (req, res, next) => {
   let address = process.env.ADDRESS;
   let contactInfo = {
     Email: email,
-    Phone: phone,
-    Address: address
+    Tlf: phone,
+    Adresse: address
   };
   res.locals.contactInfo = showList(contactInfo);
   next();

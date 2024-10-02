@@ -5,6 +5,13 @@
 
 const path = require('path');
 
+const _dict = {
+  'about': 'Om Os',
+  'contact': 'Kontakt',
+  'home': 'Hjem',
+  'services': 'Ydelser og Tjenester'
+}
+
 class View {
   /**
    * @param {string} viewPath - The full path to the view file
@@ -13,8 +20,7 @@ class View {
     this.fid = viewPath;  // Full path to the .ejs file
     this.name = this.toSnakeCase(
       path.basename(viewPath, path.extname(viewPath)));  // snake_case name
-    this.title = this.capitalizeTitle(
-      path.basename(viewPath, path.extname(viewPath)));  // Capitalized title
+    this.title = _dict[this.name]
   }
 
   /**

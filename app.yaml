@@ -1,43 +1,50 @@
 runtime: nodejs22
 
 env_variables:
-  # These should match the variables from your .env file.
-  PORT: "8080"
-  THEME_VAPOR: "your_vapor_theme_url"
-  THEME_SOLAR: "your_solar_theme_url"
-  BOOTSTRAP_JS_URL: "your_bootstrap_js_url"
-  BOOTSTRAP_CSS_URL: "your_bootstrap_css_url"
-  POPPER_JS_URL: "your_popper_js_url"
+  LOGO: "/images/logo.png"
+  THEME_VAPOR: "https://bootswatch.com/5/vapor/bootstrap.min.css"
+  THEME_SOLAR: "https://bootswatch.com/5/solar/bootstrap.min.css"
+  JQUERY_JS_URL: "https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"
+  POPPER_JS_URL: "https://cdn.jsdelivr.net/npm/@popperjs/core/dist/umd/popper.min.js"
+  BOOTSTRAP_JS_URL: "https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"
+  BOOTSTRAP_CSS_URL: "https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css"
 
-instance_class: F2
+# Instance settings. Use a higher class if you suspect resource limits.
+instance_class: F1
 
 automatic_scaling:
   target_cpu_utilization: 0.65
   min_instances: 1
   max_instances: 5
 
+# Static file serving for the 'public' directory.
 handlers:
   - url: /public
     static_dir: public
 
+  # Favicon handling
   - url: /favicon.ico
     static_files: public/favicon.ico
     upload: public/favicon.ico
 
+  # Catch-all handler that sends everything else to the Node.js app.
   - url: /.*
     script: auto
 
-health_check:
-  enable_health_check: true
+# Health check configuration
+readiness_check:
+  path: "/health"
   check_interval_sec: 5
-  timeout_sec: 4
-  healthy_threshold: 2
-  unhealthy_threshold: 10
+  timeout_sec: 10  # Increase timeout to avoid failures on slower startups
+  failure_threshold: 3
+  success_threshold: 1
 
+## Optional: Liveness check to restart app if unresponsive.
 liveness_check:
   path: "/health"
-  initial_delay_sec: 30
+  initial_delay_sec: 30  # Time before starting liveness checks
   check_interval_sec: 5
   timeout_sec: 4
   failure_threshold: 5
   success_threshold: 1
+  #

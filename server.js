@@ -15,8 +15,6 @@ const Vistas = require('./utils/Vistas');
 const yeet = require("./utils/yeet");
 
 const port = process.env.PORT;
-const theme_vapor = process.env.THEME_VAPOR;
-const theme_solar = process.env.THEME_SOLAR;
 
 const bootstrap_js_url = process.env.BOOTSTRAP_JS_URL;
 const bootstrap_css_url = process.env.BOOTSTRAP_CSS_URL;
@@ -39,7 +37,7 @@ app.use(loadEnv);
 const vistas = new Vistas(views);
 
 app.use((req, res, next) => {
-  res.locals.themeUrl = theme_vapor;
+  res.locals.themeUrl = process.env.THEME_CERULEAN;
   next();
 });
 
@@ -55,30 +53,56 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/:target', async (req, res, next) => {
-  let target = req.params.target;
-  if (target === 'favicon.ico') {
-    res.sendFile(path.join(__dirname, 'public', 'favicon.ico'));
-  } else if (target === 'health') {
-    res.status(200).send('OK');
-  } else {
-    try {
-      if (vistas.test(target)) {
-        res.render(target, {
-          title: target,
-          page: target,
-        });
-      } else {
-        res.status(404).send(`Page: ${target} not found!`);
-      }
-    } catch (err) {
-      next(err);
-    }
-  }
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'favicon.ico'));
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', {
+    title: 'Om Os',
+    page: 'about',
+  });
 });
 
 
+app.get('/home', (req, res) => {
+  res.render('home', {
+    title: 'Hjem',
+    page: 'home',
+  });
+});
+
+app.get('/contact', (req, res) => {
+  res.render('contact', {
+    title: 'Kontakt',
+    page: 'contact',
+  });
+});
+
+app.get('/services', (req, res) => {
+  res.render('services', {
+    title: 'Ydelser og Tjenester',
+    page: 'services',
+  });
+});
+const projectId = process.env.GOOGLE_CLOUD_PROJECT;
+const service = process.env.GAE_SERVICE || 'default';
+const version = process.env.GAE_VERSION;
+
+// If the environment variables are set, assume production on GCP
 app.listen(port, () => {
-  console.log(`[server.js]: Server running at http://localhost:${port}`);
+  console.log('______________________');
+  console.log(new Date().toString());
+  if (projectId && service && version) {
+    const url = `https://${service}-dot-${projectId}.appspot.com`;
+    console.log(`[server.js]: Server running at ${url}`);
+  } else {
+    console.log(`[server.js]: Server running at http://localhost:${port}`);
+  }
+  console.log('¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨');
 });
 
