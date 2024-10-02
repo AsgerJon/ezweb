@@ -57,17 +57,21 @@ app.get('/', (req, res) => {
 
 app.get('/:target', async (req, res, next) => {
   let target = req.params.target;
-  try {
-    if (vistas.test(target)) {
-      res.render(target, {
-        title: target,
-        page: target,
-      });
-    } else {
-      res.status(404).send(`Page: ${target} not found!`);
+  if (target === 'favicon.ico') {
+    res.sendFile(path.join(__dirname, 'public', 'favicon.ico'));
+  } else {
+    try {
+      if (vistas.test(target)) {
+        res.render(target, {
+          title: target,
+          page: target,
+        });
+      } else {
+        res.status(404).send(`Page: ${target} not found!`);
+      }
+    } catch (err) {
+      next(err);
     }
-  } catch (err) {
-    next(err);
   }
 });
 

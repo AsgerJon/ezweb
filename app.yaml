@@ -38,3 +38,11 @@ health_check:
   timeout_sec: 4
   unhealthy_threshold: 2
   healthy_threshold: 2
+  
+readiness_check:
+  path: "/readiness_check"
+  timeout_sec: 4
+  check_interval_sec: 5
+  failure_threshold: 2
+  success_threshold: 2
+  app_start_timeout_sec: 300
