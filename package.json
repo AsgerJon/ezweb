@@ -1,0 +1,25 @@
+{
+  "name": "ezweb",
+  "version": "0.0.1",
+  "description": "Basic node.js/express web application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Asger Jon Vistisen",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "app-root-path": "^3.1.0",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
