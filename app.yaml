@@ -1,48 +1,43 @@
-runtime: nodejs22  # Specifies the runtime environment
-env: standard      # Specifies the environment to use, standard or flexible
+runtime: nodejs22
 
-instance_class: F1  # Defines the class of GCP instance to use
-
-# Automatic scaling configuration
-automatic_scaling:
-  target_cpu_utilization: 0.65  # Target CPU utilization percentage
-  min_instances: 1              # Minimum number of instances
-  max_instances: 5              # Maximum number of instances
-
-# Environment variables that you want to set
 env_variables:
-  NODE_ENV: 'production'
-  API_KEY: ${API_KEY}
+  # These should match the variables from your .env file.
+  PORT: "8080"
+  THEME_VAPOR: "your_vapor_theme_url"
+  THEME_SOLAR: "your_solar_theme_url"
+  BOOTSTRAP_JS_URL: "your_bootstrap_js_url"
+  BOOTSTRAP_CSS_URL: "your_bootstrap_css_url"
+  POPPER_JS_URL: "your_popper_js_url"
 
-# Handlers define rules to handle incoming routes
+instance_class: F2
+
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  min_instances: 1
+  max_instances: 5
+
 handlers:
-  # Serve all traffic using the app
+  - url: /public
+    static_dir: public
+
+  - url: /favicon.ico
+    static_files: public/favicon.ico
+    upload: public/favicon.ico
+
   - url: /.*
     script: auto
-    secure: always
 
-  # Static files configuration
-  - url: /stylesheets
-    static_dir: stylesheets
-
-  # Redirect HTTP traffic to HTTPS
-  - url: /.*
-    redirect_http_response_code: 301
-    script: auto
-    secure: always
-
-# Health checks configuration (optional)
 health_check:
   enable_health_check: true
   check_interval_sec: 5
   timeout_sec: 4
-  unhealthy_threshold: 2
   healthy_threshold: 2
-  
-readiness_check:
-  path: "/readiness_check"
-  timeout_sec: 4
+  unhealthy_threshold: 10
+
+liveness_check:
+  path: "/health"
+  initial_delay_sec: 30
   check_interval_sec: 5
-  failure_threshold: 2
-  success_threshold: 2
-  app_start_timeout_sec: 300
+  timeout_sec: 4
+  failure_threshold: 5
+  success_threshold: 1

@@ -59,6 +59,8 @@ app.get('/:target', async (req, res, next) => {
   let target = req.params.target;
   if (target === 'favicon.ico') {
     res.sendFile(path.join(__dirname, 'public', 'favicon.ico'));
+  } else if (target === 'health') {
+    res.status(200).send('OK');
   } else {
     try {
       if (vistas.test(target)) {
@@ -74,6 +76,7 @@ app.get('/:target', async (req, res, next) => {
     }
   }
 });
+
 
 app.listen(port, () => {
   console.log(`[server.js]: Server running at http://localhost:${port}`);
