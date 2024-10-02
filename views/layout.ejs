@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title><%= name %></title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= appName %> - <%= title %></title>
+
+  <!-- Bootstrap CSS (loaded from env var) -->
+  <link href="<%= themeUrl %>" rel="stylesheet"/>
+  <link href="<%= bootstrapCssUrl %>" rel="stylesheet"/>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
 </head>
 <body>
-<%- include('partials/header', {
-name: name,
-address: address,
-email: email,
-phone: phone,
-logo: logo,
-website: website
-}) %>
-
-<main class="container">
-    <h2 class="mt-4"><%= title %></h2>
-    <%- content %>
+<!-- Include the header -->
+<header>
+  <%- include('partials/header') %>
+</header>
+<!-- Page-specific content goes here -->
+<main class="container mt-4">
+  <%- body %>
 </main>
 
-<%- include('partials/footer', {
-name: name,
-address: address,
-email: email,
-phone: phone,
-logo: logo,
-website: website
-}) %>
+<!-- Include the footer -->
+<%- include('partials/footer') %>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.5/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src=<%= jquery_js_url %>></script>
+<script src=<%= bootstrapJsUrl %>></script>
+<script src=<%= popperJsUrl %>></script>
+<script src="/javascripts/main.js"></script>
 </body>
 </html>

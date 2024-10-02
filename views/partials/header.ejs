@@ -1,29 +1,18 @@
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <img src="<%= logo %>" alt="<%= name %>"
-                 style="height: 40px;">
-        </a>
-        <a class="navbar-brand" href="/"><%= name %></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home
-                        <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/services">Services</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Logo on the left -->
+    <a class="navbar-brand" href="/home">
+      <img src="<%= appLogo %>" alt="Logo" class="logo-img"
+           style="height: 50px;"> <!-- Ensure the logo isn't too large -->
+    </a>
+    <span class="text-light modal-header">
+      <%= appName %>
+    </span>
 
-</header>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <%- headerItems %>
+      </ul>
+    </div>
+  </div>
+</nav>

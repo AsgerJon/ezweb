@@ -1,38 +1,35 @@
-<footer class="bg-dark text-white pt-4 pb-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h5>About Us</h5>
-                <p>Short description of the company or organization, possibly
-                    including a mission statement or vision.</p>
-            </div>
-            <div class="col-md-3">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/about" class="text-light">About</a></li>
-                    <li><a href="/services" class="text-light">Services</a>
-                    </li>
-                    <li><a href="/faq" class="text-light">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>Contact Us</h5>
-                <p><%= address %></p>
-                <p>Email: <%= email %></p>
-                <p>Phone: <%= phone %></p>
-            </div>
-            <div class="col-md-3">
-                <h5>Follow Us</h5>
-                <a href="https://facebook.com"
-                   class="text-light">Facebook</a><br>
-                <a href="https://twitter.com"
-                   class="text-light">Twitter</a><br>
-                <a href="https://instagram.com"
-                   class="text-light">Instagram</a>
-            </div>
-        </div>
+<footer class="bg-dark text-light text-center py-4">
+  <div class="container">
+    <div class="row">
+      <!-- Sitemap Column -->
+      <div class="col-md-4">
+        <h5>Sitemap</h5>
+        <ul class="list-unstyled">
+          <%- footerItems %>
+        </ul>
+      </div>
+
+      <!-- Contacts Column -->
+      <div class="col-md-4">
+        <h5>Contacts</h5>
+        <ul class="list-unstyled">
+          <%- contactInfo %>
+        </ul>
+      </div>
+
+      <!-- Social Media Column -->
+      <div class="col-md-4">
+        <h5>Social Media</h5>
+        <ul class="list-unstyled">
+          <%- socialMedia %>
+        </ul>
+      </div>
     </div>
-    <div class="text-center py-3">
-        © 2024 <%= name %>. All rights reserved.
+  </div>
+  <div class="row text-light fs-6">
+    <div class="col-md-12">
+      <hr class="bg-light">
+      <%- copyrightNotice %>
     </div>
+  </div>
 </footer>

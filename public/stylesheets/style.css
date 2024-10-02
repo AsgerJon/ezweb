@@ -1,0 +1,20 @@
+/*
+ * AGPL-3.0 license
+ * Copyright (c) 2024 Asger Jon Vistisen
+ */
+
+
+/* Minimal CSS for the sticky footer */
+html, body {
+    height: 100%; /* Ensure body takes the full viewport height */
+    margin: 0; /* Remove default margin/padding */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Make body a flex container */
+}
+
+main {
+    flex-grow: 1; /* Make main take up the available space */
+}
